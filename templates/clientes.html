@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Clientes Registrados</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Identificación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if clientes %}
+                {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.ID }}</td>
+                        <td>{{ cliente.Nombre }}</td>
+                        <td>{{ cliente.Correo }}</td>
+                        <td>{{ cliente.Telefono }}</td>
+                        <td>{{ cliente.Identificacion }}</td>
+                        <td>
+                            <!-- Enlace para editar el cliente -->
+                            <a href="{{ url_for('editar_cliente', id=cliente.ID) }}" class="btn btn-primary">Editar</a>
+                            <!-- Enlace para eliminar el cliente-->
+                            <a href="{{ url_for('eliminar_cliente', id=cliente.ID) }}" 
+                                class="btn btn-danger"
+                                onclick="return confirm('¿Estás seguro que deseas eliminar este cliente?');">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No hay clientes registrados</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <div class="mt-3">
+        <a href="{{ url_for('crear_cliente') }}" class="btn btn-success">Agregar Nuevo Cliente</a>
+    </div>
+    
+</body>
+</html>

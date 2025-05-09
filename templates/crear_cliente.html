@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Cliente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Cliente</h1>
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('crear_cliente') }}" method="POST" onsubmit="return validarFormulario();">
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="email" name="correo" placeholder="Correo Electrónico" required>
+            <input type="text" name="telefono" placeholder="Teléfono" required>
+            <input type="text" name="identificacion" placeholder="Identificación" required>
+            <button type="submit">Guardar Cliente</button>
+        </form>
+    </div>
+
+    <script>
+        // Validación en el navegador
+        function validarFormulario() {
+            const telefono = document.querySelector('input[name="telefono"]').value;
+
+            if (isNaN(telefono) || telefono.length < 8) {
+                alert("El teléfono debe ser un número válido y contener al menos 8 dígitos.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
+
